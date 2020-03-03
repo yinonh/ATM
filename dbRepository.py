@@ -1,16 +1,6 @@
 import csv
 
 class dbReposetitory:
-    def get_account_details(self, number):
-        number = str(number)
-        with open("ATMdeata.csv", "r") as db:
-            for account in db:
-                account = account.split(",")
-                if account[0] == number:
-                    db.close()
-                    return account[:4]
-        return None
-
     def add_account(self, name, password, amount=0):
         with open("ATMdeata.csv", "r") as db:
             accounts_number = int(db.readline().split(",")[4]) + 1
@@ -26,6 +16,16 @@ class dbReposetitory:
                 for i in temp:
                     db.write(i)
         return accounts_number
+
+    def get_account_details(self, number):
+        number = str(number)
+        with open("ATMdeata.csv", "r") as db:
+            for account in db:
+                account = account.split(",")
+                if account[0] == number:
+                    db.close()
+                    return account[:4]
+        return None
 
     def updat(self, account_number, name, password, balance):
         result = False
