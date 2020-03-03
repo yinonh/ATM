@@ -17,8 +17,8 @@ class BankAccount:
     def log_in(self, account_number, password):
         account = dbReposetitory()
         details = account.get_account_details(account_number)
-        if (details != None):
-            if (password == details[2]):
+        if details != None:
+            if password == details[2]:
                 self.init(details[0], details[1], details[2], details[3])
                 return True
         else:
@@ -31,15 +31,15 @@ class BankAccount:
         except:
             print("the amount have to be number")
             return False
-        ABC = [x for x in string.ascii_letters]
+        abc = [x for x in string.ascii_letters]
         for i in name:
-            if not (i in ABC or i == " "):
+            if not (i in abc or i == " "):
                 print("%s is illegal character in name" % i)
                 return False
         if len(password) < 6 or len(password) > 20:
             print("The password have to be between 6 to 20 charactars")
             return False
-        if not (any(i in password for i in ABC)):
+        if not (any(i in password for i in abc)):
             print("tha password should contain at least one letter")
             return False
         elif not (any(i in password for i in [str(x) for x in range(10)])):
@@ -59,7 +59,7 @@ class BankAccount:
     def deposit(self, amount):
         try:
             amount = float(amount)
-            if (amount < 0):
+            if amount < 0:
                 raise Exception(ValueError)
             self._balance = float(self._balance) + amount
             print("Your deposit has successfully passed\nthere is balance of %f in you'r account" % (self._balance))
@@ -71,7 +71,7 @@ class BankAccount:
     def withdraw(self, amount):
         try:
             amount = float(amount)
-            if (amount < 0 or amount > self._balance):
+            if amount < 0 or amount > self._balance:
                 raise MinusException
             self._balance = float(self._balance) - amount
             print("Your withdraw has successfully passed\nthere is balance of %f in you'r account" % (self._balance))
