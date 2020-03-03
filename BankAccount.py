@@ -1,14 +1,14 @@
 import string
-
+from MinusException import MinusException
 from dbRepository import dbReposetitory
 
 class BankAccount:
 
     def init(self, account_number, name, password, balance):
-        self.account_number = account_number
-        self.name = name
-        self.password = password
-        self.balance = float(balance)
+        self._account_number = account_number
+        self._name = name
+        self._password = password
+        self._balance = float(balance)
 
     def __str__(self):
         return "Hello %s your account number is %s and there is a balance of %f NIS in you'r account" % \
@@ -36,7 +36,7 @@ class BankAccount:
             if not (i in ABC or i == " "):
                 print("%s is illegal character in name" % i)
                 return False
-        if (len(password) < 6 or len(password) > 20):
+        if len(password) < 6 or len(password) > 20:
             print("The password have to be between 6 to 20 charactars")
             return False
         if not (any(i in password for i in ABC)):
@@ -72,13 +72,13 @@ class BankAccount:
         try:
             amount = float(amount)
             if (amount < 0 or amount > self._balance):
-                raise minus
+                raise MinusException
             self._balance = float(self._balance) - amount
             print("Your withdraw has successfully passed\nthere is balance of %f in you'r account" % (self._balance))
             return True
-        except minus:
+        except MinusException:
             print("the amount have to be between 0 to %s " % (self._balance))
-            print(minus())
+            print(MinusException())
             return False
         except:
             print("the amount have to be number")
