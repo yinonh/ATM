@@ -4,6 +4,9 @@ from dbRepository import dbReposetitory
 
 class BankAccount:
 
+    def __init__(self):
+        self._account = dbReposetitory()
+
     def init(self, account_number, name, password, balance):
         self._account_number = account_number
         self._name = name
@@ -15,8 +18,7 @@ class BankAccount:
                (self._name, self._account_number, self._balance)
 
     def log_in(self, account_number, password):
-        account = dbReposetitory()
-        details = account.get_account_details(account_number)
+        details = self._account.get_account_details(account_number)
         if details != None:
             if password == details[2]:
                 self.init(details[0], details[1], details[2], details[3])
@@ -52,8 +54,7 @@ class BankAccount:
         if not (self.check_invalid_input(name, password, amount)):
             return -1
         else:
-            account = dbReposetitory()
-            account_number = account.add_account(name.lower(), password, amount)
+            account_number = self._account.add_account(name.lower(), password, amount)
             return account_number
 
     def deposit(self, amount):
@@ -85,5 +86,4 @@ class BankAccount:
             return False
 
     def log_out(self):
-        updating = dbReposetitory()
-        updating.updat(self._account_number, self._name, self._password, self._balance)
+        self._account.updat(self._account_number, self._name, self._password, self._balance)

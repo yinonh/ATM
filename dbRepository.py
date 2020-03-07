@@ -1,6 +1,8 @@
 import csv
+from Reposeitory import Reposetory
 
-class dbReposetitory:
+class dbReposetitory (Reposetory):
+
     def add_account(self, name, password, amount=0):
         with open("ATMdeata.csv", "r") as db:
             accounts_number = int(db.readline().split(",")[4]) + 1
